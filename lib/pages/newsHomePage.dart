@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:daily_news/pages/pages.dart';
 import 'package:daily_news/models/models.dart';
 import 'package:daily_news/widgets/widgets.dart';
 import 'package:http/http.dart' as http;
@@ -48,9 +49,11 @@ class _NewsHomePageState extends State<NewsHomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(height: 8),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 8),
-              height: 130,
+              // padding: EdgeInsets.symmetric(vertical: 8),
+              alignment: Alignment.center,
+              height: 120,
               child: ListView.builder(
                 itemCount: categoryList.length,
                 itemBuilder: (context, index) => CategoryTile(
@@ -70,14 +73,10 @@ class _NewsHomePageState extends State<NewsHomePage> {
                     )
                   : ListView.builder(
                       itemCount: newsData["articles"].length,
-                      itemBuilder: (context, index) => GestureDetector(
-                        onTap: () => print("News Article"),
-                        child: NewsTile(
-                          title: newsData["articles"][index]["title"],
-                          description: newsData["articles"][index]
-                              ["description"],
-                          urlToImage: newsData["articles"][index]["urlToImage"],
-                        ),
+                      itemBuilder: (context, index) => NewsTile(
+                        title: newsData["articles"][index]["title"],
+                        description: newsData["articles"][index]["description"],
+                        urlToImage: newsData["articles"][index]["urlToImage"],
                       ),
                       shrinkWrap: true,
                       physics: ClampingScrollPhysics(),
@@ -100,7 +99,15 @@ class CategoryTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: () => print("Category News"),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  CategoryNewsPage(categoryName: categoryName),
+            ),
+          );
+        },
         child: Stack(
           children: [
             Container(

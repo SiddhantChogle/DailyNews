@@ -14,6 +14,7 @@ class _NewsHomePageState extends State<NewsHomePage> {
   String url =
       "https://newsapi.org/v2/top-headlines?country=in&apiKey=3e5ace0d02df41e7b5978ccb720a34aa";
   var newsData;
+
   @override
   void initState() {
     fetchNews();
@@ -29,6 +30,7 @@ class _NewsHomePageState extends State<NewsHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -53,7 +55,7 @@ class _NewsHomePageState extends State<NewsHomePage> {
             Container(
               // padding: EdgeInsets.symmetric(vertical: 8),
               alignment: Alignment.center,
-              height: 120,
+              height: size.height * 0.19,
               child: ListView.builder(
                 itemCount: categoryList.length,
                 itemBuilder: (context, index) => CategoryTile(
@@ -68,7 +70,7 @@ class _NewsHomePageState extends State<NewsHomePage> {
               child: newsData == null
                   ? Container(
                       alignment: AlignmentDirectional.center,
-                      height: MediaQuery.of(context).size.height - 230,
+                      height: MediaQuery.of(context).size.height - 200,
                       child: CircularProgressIndicator(),
                     )
                   : ListView.builder(
@@ -77,6 +79,7 @@ class _NewsHomePageState extends State<NewsHomePage> {
                         title: newsData["articles"][index]["title"],
                         description: newsData["articles"][index]["description"],
                         urlToImage: newsData["articles"][index]["urlToImage"],
+                        url: newsData["articles"][index]["url"],
                       ),
                       shrinkWrap: true,
                       physics: ClampingScrollPhysics(),
@@ -96,6 +99,7 @@ class CategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
@@ -111,8 +115,8 @@ class CategoryTile extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              height: 95,
-              width: 150,
+              height: size.height * 0.15,
+              width: size.width * 0.4,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6),
                 image: DecorationImage(
@@ -123,11 +127,12 @@ class CategoryTile extends StatelessWidget {
             ),
             Container(
               alignment: Alignment.center,
-              height: 95,
-              width: 150,
+              height: size.height * 0.15,
+              width: size.width * 0.4,
               child: Text(
                 this.categoryName,
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                style:
+                    TextStyle(color: Colors.white, fontSize: size.width * 0.05),
               ),
               decoration: BoxDecoration(
                 color: Colors.black38,

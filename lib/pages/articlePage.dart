@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-class ArticlePage extends StatelessWidget {
+class ArticlePage extends StatefulWidget {
+  final articleUrl;
+  ArticlePage({this.articleUrl});
+
+  @override
+  _ArticlePageState createState() => _ArticlePageState();
+}
+
+class _ArticlePageState extends State<ArticlePage> {
+  void initState() {
+    super.initState();
+    // Enable hybrid composition.
+    // if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +34,10 @@ class ArticlePage extends StatelessWidget {
         ]),
         actions: [SizedBox(width: 56)],
         elevation: 2,
+      ),
+      body: WebView(
+        initialUrl: widget.articleUrl,
+        javascriptMode: JavascriptMode.unrestricted,
       ),
     );
   }

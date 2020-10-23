@@ -70,6 +70,7 @@ class _CategoryNewsPageState extends State<CategoryNewsPage> {
                     title: newsData["articles"][index]["title"],
                     description: newsData["articles"][index]["description"],
                     urlToImage: newsData["articles"][index]["urlToImage"],
+                    url: newsData["articles"][index]["url"],
                   ),
                 ),
                 shrinkWrap: true,

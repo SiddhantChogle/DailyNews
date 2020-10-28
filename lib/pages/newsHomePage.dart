@@ -57,6 +57,7 @@ class _NewsHomePageState extends State<NewsHomePage> {
               alignment: Alignment.center,
               height: size.height * 0.19,
               child: ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 4.0),
                 itemCount: categoryList.length,
                 itemBuilder: (context, index) => CategoryTile(
                     categoryName: categoryList[index].categoryName,
@@ -75,12 +76,17 @@ class _NewsHomePageState extends State<NewsHomePage> {
                     )
                   : ListView.builder(
                       itemCount: newsData["articles"].length,
-                      itemBuilder: (context, index) => NewsTile(
-                        title: newsData["articles"][index]["title"],
-                        description: newsData["articles"][index]["description"],
-                        urlToImage: newsData["articles"][index]["urlToImage"],
-                        url: newsData["articles"][index]["url"],
-                      ),
+                      itemBuilder: (context, index) =>
+                          newsData["articles"][index]["urlToImage"] == null
+                              ? SizedBox()
+                              : NewsTile(
+                                  title: newsData["articles"][index]["title"],
+                                  description: newsData["articles"][index]
+                                      ["description"],
+                                  urlToImage: newsData["articles"][index]
+                                      ["urlToImage"],
+                                  url: newsData["articles"][index]["url"],
+                                ),
                       shrinkWrap: true,
                       physics: ClampingScrollPhysics(),
                     ),

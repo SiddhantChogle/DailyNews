@@ -29,7 +29,7 @@ class NewsTile extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(bottom: 4),
+                padding: const EdgeInsets.only(bottom: 4.0),
                 child: urlToImage == ""
                     ? Container(
                         // padding: EdgeInsets.symmetric(vertical: 80),
